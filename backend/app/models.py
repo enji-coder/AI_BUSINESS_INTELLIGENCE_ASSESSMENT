@@ -182,9 +182,9 @@ class HITLRecommendation(Base):
     category = Column(String(100), nullable=False) # Financial, Operational, Academic, Marketing
     proposed_action = Column(Text, nullable=False)
     business_impact = Column(Text, nullable=False)
-    estimated_budget_impact = Column(String(100), nullable=True)
+    estimated_budget_impact = Column(String(255), nullable=True)
     priority = Column(String(50), default="High") # Urgent, High, Medium, Low
-    verification_status = Column(String(50), default="Verified") # Verified by Verification Agent
+    verification_status = Column(Text, default="Verified") # Verified by Verification Agent
     status = Column(String(50), default="PENDING") # PENDING, APPROVED, REJECTED, ADJUSTED
     reviewer_comment = Column(Text, nullable=True)
     reviewed_by_id = Column(Integer, ForeignKey("users.id"), nullable=True)

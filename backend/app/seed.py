@@ -1,4 +1,5 @@
 import os
+import datetime
 import pandas as pd
 from sqlalchemy.orm import Session
 from .database import engine, SessionLocal, Base
@@ -188,7 +189,7 @@ def seed_database(excel_path: str = "02_Education.xlsx"):
                 verification_status="Verified by Verification Agent (Numerical basis: Pune, Surat, Ahmedabad represent 42% of total student base)",
                 status="APPROVED",
                 reviewer_comment="Approved for next quarterly campaign start.",
-                reviewed_at=pd.Timestamp.utcnow()
+                reviewed_at=datetime.datetime.utcnow()
             )
         ]
         for rec in init_recommendations:
