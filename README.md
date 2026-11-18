@@ -1,9 +1,29 @@
 # EduIntel AI • Smart Education Business Operations & Decision Intelligence System
 
-[![Evaluation Score](https://img.shields.io/badge/Evaluation%20Target-98%2B%20%2F%20100%20Marks-emerald?style=for-the-badge&logo=target)](https://github.com)
-[![Industry Focus](https://img.shields.io/badge/Industry-Education%3A%20Institute%20%26%20Student%20Performance-cyan?style=for-the-badge)](https://github.com)
-[![Architecture](https://img.shields.io/badge/Stack-React.js%20%2B%20FastAPI%20%2B%20CrewAI%20%2B%20PostgreSQL-indigo?style=for-the-badge)](https://github.com)
-[![Verification](https://img.shields.io/badge/Verification%20Audit-Zero%20Hallucination%20(98.8%25)-green?style=for-the-badge)](https://github.com)
+[![Status: Live Production](https://img.shields.io/badge/Status-Live%20%26%20Operational-emerald?style=for-the-badge&logo=render)](https://eduintel-ai-2026.netlify.app)
+[![Frontend: Netlify](https://img.shields.io/badge/Frontend-Netlify%20Production-blue?style=for-the-badge&logo=netlify)](https://eduintel-ai-2026.netlify.app)
+[![Backend: Render](https://img.shields.io/badge/Backend%20API-FastAPI%20on%20Render-teal?style=for-the-badge&logo=fastapi)](https://eduintel-backend-2uzk.onrender.com/docs)
+[![Database: Neon PostgreSQL](https://img.shields.io/badge/Database-Neon%20Serverless%20PostgreSQL-336791?style=for-the-badge&logo=postgresql)](https://neon.tech)
+[![Multi-Agent: CrewAI](https://img.shields.io/badge/Architecture-CrewAI%206--Agent%20Swarm-purple?style=for-the-badge&logo=robotframework)](https://github.com/enji-coder/AI_BUSINESS_INTELLIGENCE_ASSESSMENT)
+
+---
+
+## 🌐 Live Production Deployments & Access Links
+
+| Service | Technology | Live URL | Description |
+|:---|:---|:---|:---|
+| **🚀 Production Frontend** | React 19 + Tailwind CSS + Recharts | **[https://eduintel-ai-2026.netlify.app](https://eduintel-ai-2026.netlify.app)** | Live Decision Intelligence Dashboard, 6-Agent Swarm Monitor, HITL Action Center & PDF Export |
+| **⚡ Live Backend API** | FastAPI + Python 3.12 | **[https://eduintel-backend-2uzk.onrender.com](https://eduintel-backend-2uzk.onrender.com)** | High-performance async REST API on Render |
+| **📖 Interactive API Docs (Swagger UI)** | OpenAPI 3.1 / Swagger | **[https://eduintel-backend-2uzk.onrender.com/docs](https://eduintel-backend-2uzk.onrender.com/docs)** | Interactive API testing sandbox with all 15+ endpoints |
+| **🩺 Backend Health Check** | FastAPI Health Endpoint | **[https://eduintel-backend-2uzk.onrender.com/health](https://eduintel-backend-2uzk.onrender.com/health)** | Live telemetry, uptime, database connectivity status |
+| **🗄️ Cloud Production Database** | Neon Serverless PostgreSQL | **AWS `us-east-2` Cloud DB** | 10 Relational tables with 8,300+ ground-truth educational records ingested |
+| **📂 Official GitHub Repository** | Git / GitHub | **[https://github.com/enji-coder/AI_BUSINESS_INTELLIGENCE_ASSESSMENT](https://github.com/enji-coder/AI_BUSINESS_INTELLIGENCE_ASSESSMENT)** | Complete source code, Docker configs, documentation & migration scripts |
+
+### 🔑 Demo Director Access Credentials
+- **Role**: Institute Director (`Dr. Rajesh Mehta`)
+- **Email**: `director@apexinstitute.edu`
+- **Password**: `Director@2026`
+*(You can also use the 1-Click "Fill Default Demo Account" button in the frontend login dialog)*
 
 ---
 
