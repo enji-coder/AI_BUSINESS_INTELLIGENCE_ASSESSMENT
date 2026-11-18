@@ -208,10 +208,11 @@ export default function App() {
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-mono text-xs font-bold flex items-center gap-1.5">
                         <Award className="w-3.5 h-3.5 text-cyan-400" />
-                        Education Performance Intelligence • Total Marks: 100
+                        Education Operations Intelligence • Production Suite
                       </span>
-                      <span className="text-xs text-slate-400 font-mono">
-                        Target Score: &gt;98/100
+                      <span className="text-xs text-emerald-400 font-mono flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                        Swarm Engine Online
                       </span>
                     </div>
 

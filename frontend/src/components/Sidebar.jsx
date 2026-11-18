@@ -129,28 +129,6 @@ export default function Sidebar({ activeTab, setActiveTab, pendingApprovalsCount
           })}
         </nav>
       </div>
-
-      {/* Assessment Evaluation Score Card */}
-      <div className="p-4 m-3 rounded-2xl bg-gradient-to-br from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-900/50 shadow-xl">
-        <div className="flex items-center justify-between text-xs mb-2">
-          <div className="flex items-center space-x-1.5 text-emerald-400 font-bold">
-            <ShieldCheck className="w-4 h-4" />
-            <span>Audited & Certified</span>
-          </div>
-          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-            98.8 / 100
-          </span>
-        </div>
-
-        <p className="text-[11px] text-slate-300 leading-relaxed">
-          Zero-hallucination verification matrix active. All 6 agents reconciled against 8,300+ ground truth database records.
-        </p>
-
-        <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-400">
-          <span>Target Score: &gt;98/100</span>
-          <span className="text-cyan-400 font-bold">100 Marks</span>
-        </div>
-      </div>
     </aside>
   );
 }

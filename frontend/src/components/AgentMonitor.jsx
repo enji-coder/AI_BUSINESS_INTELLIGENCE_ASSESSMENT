@@ -124,7 +124,7 @@ export default function AgentMonitor({
             <div className="flex items-center space-x-2.5">
               <span className="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-mono text-xs font-bold flex items-center gap-1.5">
                 <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-                CrewAI Multi-Agent Architecture • 20 Marks
+                CrewAI Multi-Agent Architecture • Enterprise Swarm
               </span>
               <span className="text-xs text-slate-400 font-mono hidden sm:inline">
                 Execution Model: Sequential-Hierarchical
