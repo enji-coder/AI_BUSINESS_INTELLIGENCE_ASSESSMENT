@@ -9,7 +9,7 @@ def calculate_education_kpis(db: Session, excel_path: str = "02_Education.xlsx")
     Computes rigorous ground-truth business & academic KPIs from DB (or Excel directly if DB is bootstrapping).
     """
     # Check if DB has students
-    student_count = db.query(Student).count()
+    student_count = db.query(Student).count() if db is not None else 0
     if student_count > 0:
         # Load from DB via Pandas
         students_df = pd.read_sql(db.query(Student).statement, db.bind)

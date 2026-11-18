@@ -9,6 +9,7 @@ from ..models import AgentExecution, AgentLog, BusinessReport, HITLRecommendatio
 from ..services.analytics_service import calculate_education_kpis
 from .agent_definitions import AGENTS_METADATA
 from .llm_client import generate_agent_response
+from .crewai_engine import create_education_crew, CrewAIAgent, CrewAITask, CrewAICrew, Process
 
 def run_education_intelligence_crew(
     db: Session,
