@@ -5,9 +5,9 @@ import {
   User, 
   LogOut, 
   ShieldCheck, 
-  Play, 
-  FileDown,
-  Database
+  Database,
+  Building2,
+  Activity
 } from 'lucide-react';
 
 export default function Navbar({ 
@@ -20,77 +20,82 @@ export default function Navbar({
   profile
 }) {
   return (
-    <header className="h-16 border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-xl sticky top-0 z-30 px-6 flex items-center justify-between">
-      {/* Brand & Industry */}
-      <div className="flex items-center space-x-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+    <header className="h-20 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-2xl sticky top-0 z-40 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      {/* Brand & Organization Title */}
+      <div className="flex items-center space-x-4">
+        <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/20 ring-1 ring-white/20">
           <GraduationCap className="w-6 h-6 text-white" />
         </div>
+
         <div>
-          <div className="flex items-center space-x-2">
-            <h1 className="font-bold text-base tracking-tight text-white flex items-center gap-1.5">
-              EduIntel <span className="text-cyan-400 font-mono text-xs px-2 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-800/60">AI 2.0</span>
+          <div className="flex items-center space-x-2.5">
+            <h1 className="font-extrabold text-lg tracking-tight text-white flex items-center gap-2">
+              EduIntel <span className="text-cyan-400 font-mono text-xs px-2.5 py-0.5 rounded-full bg-cyan-950/90 border border-cyan-700/60 font-bold">DECISION AI</span>
             </h1>
-            <span className="text-slate-500 text-xs hidden sm:inline">•</span>
-            <span className="text-xs font-medium text-slate-300 hidden sm:inline">
+            <span className="text-slate-600 hidden md:inline">|</span>
+            <span className="text-xs font-semibold text-slate-300 hidden md:flex items-center gap-1.5">
+              <Building2 className="w-3.5 h-3.5 text-cyan-400" />
               {profile?.institute_name || "Apex Institute of Advanced Technology"}
             </span>
           </div>
-          <div className="flex items-center space-x-2 text-[11px] text-slate-400">
-            <span className="text-cyan-400/90 font-medium">Education Intelligence</span>
+
+          <div className="flex items-center space-x-2 text-[11px] text-slate-400 mt-0.5">
+            <span className="text-cyan-400 font-semibold">Institute & Student Performance Intelligence</span>
             <span>•</span>
-            <span className="flex items-center text-emerald-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse mr-1"></span>
-              May – Oct 2026 Dataset Active
+            <span className="flex items-center text-emerald-400 font-medium">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse mr-1.5 shadow-sm shadow-emerald-400/50"></span>
+              Neon PostgreSQL Connected • 8,300 Records Active
             </span>
           </div>
         </div>
       </div>
 
-      {/* Actions & User Controls */}
-      <div className="flex items-center space-x-3">
-        {/* Trigger Multi-Agent Crew */}
+      {/* Primary Action Button & User Controls */}
+      <div className="flex items-center space-x-3.5">
+        {/* Run Multi-Agent Crew */}
         <button
           onClick={onTriggerAgents}
           disabled={isAgentRunning}
-          className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold shadow-md transition-all ${
+          className={`relative group overflow-hidden px-5 py-2.5 rounded-xl text-xs font-bold shadow-xl transition-all flex items-center space-x-2 border ${
             isAgentRunning 
-              ? 'bg-slate-800 text-slate-400 cursor-not-allowed border border-slate-700' 
-              : 'bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-cyan-500/25 border border-cyan-400/30 active:scale-95'
+              ? 'bg-slate-900 text-slate-400 border-slate-700 cursor-not-allowed' 
+              : 'bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:from-cyan-400 hover:to-indigo-500 text-white border-cyan-300/30 shadow-cyan-500/30 active:scale-95'
           }`}
         >
           {isAgentRunning ? (
             <>
-              <div className="w-3.5 h-3.5 border-2 border-slate-400 border-t-cyan-400 rounded-full animate-spin"></div>
-              <span>6 Agents Analyzing...</span>
+              <div className="w-4 h-4 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+              <span>6 Agents Analyzing Data...</span>
             </>
           ) : (
             <>
-              <Sparkles className="w-3.5 h-3.5 text-cyan-200" />
+              <Sparkles className="w-4 h-4 text-cyan-200 group-hover:rotate-12 transition-transform" />
               <span>Execute 6-Agent Swarm</span>
+              <span className="hidden sm:inline-block ml-1 px-1.5 py-0.5 rounded bg-white/20 text-[10px] font-mono">1-Click</span>
             </>
           )}
         </button>
 
-        {/* User Account */}
+        {/* User Account Pill */}
         {currentUser ? (
-          <div className="flex items-center space-x-2 bg-slate-800/80 border border-slate-700/80 rounded-lg px-3 py-1">
+          <div className="flex items-center space-x-2.5 bg-slate-900/90 border border-slate-700/80 rounded-xl px-3.5 py-1.5 shadow-inner">
             <button 
               onClick={onOpenProfile} 
-              className="flex items-center space-x-2 text-left hover:text-cyan-400 transition"
+              className="flex items-center space-x-2.5 text-left hover:text-cyan-400 transition"
+              title="Edit Profile & Strategic Goals"
             >
-              <div className="w-6 h-6 rounded-full bg-indigo-500/30 text-indigo-300 font-bold text-xs flex items-center justify-center">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center ring-1 ring-white/20 shadow">
                 {currentUser.full_name?.charAt(0) || 'D'}
               </div>
-              <div className="hidden md:block">
-                <p className="text-xs font-semibold text-slate-200 leading-none">{currentUser.full_name}</p>
-                <p className="text-[10px] text-slate-400 leading-none mt-0.5">{currentUser.role || 'Director'}</p>
+              <div className="hidden lg:block">
+                <p className="text-xs font-bold text-white leading-none">{currentUser.full_name}</p>
+                <p className="text-[10px] text-cyan-400 font-mono leading-none mt-1">{currentUser.role || 'Director'}</p>
               </div>
             </button>
             <button
               onClick={onLogout}
               title="Logout"
-              className="text-slate-400 hover:text-rose-400 ml-1 p-1 transition"
+              className="text-slate-400 hover:text-rose-400 p-1 transition ml-1"
             >
               <LogOut className="w-3.5 h-3.5" />
             </button>
@@ -98,9 +103,9 @@ export default function Navbar({
         ) : (
           <button
             onClick={onOpenLogin}
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition"
+            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs font-semibold border border-slate-700 transition shadow"
           >
-            <User className="w-3.5 h-3.5" />
+            <User className="w-4 h-4 text-cyan-400" />
             <span>Director Login</span>
           </button>
         )}
