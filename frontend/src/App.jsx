@@ -316,11 +316,14 @@ export default function App() {
             <ReportViewer reports={reports} />
           )}
 
-          {/* Dataset Telemetry Tab */}
+          {/* Dataset Upload & Multi-Agent Analysis Tab */}
           {activeTab === 'dataset' && (
             <DatasetUpload
               datasetStatus={datasetStatus}
               onRefreshStatus={loadDashboardData}
+              onNavigateToDashboard={() => setActiveTab('dashboard')}
+              onNavigateToAgents={() => setActiveTab('agents')}
+              onNavigateToReports={() => setActiveTab('reports')}
             />
           )}
 

@@ -7,10 +7,10 @@ import {
   FileText, 
   Database, 
   Settings,
-  ShieldCheck,
   ChevronRight,
   Sparkles,
-  Award
+  Award,
+  FileSpreadsheet
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab, pendingApprovalsCount = 0 }) {
@@ -47,6 +47,15 @@ export default function Sidebar({ activeTab, setActiveTab, pendingApprovalsCount
       iconColor: 'text-indigo-400'
     },
     { 
+      id: 'dataset', 
+      label: 'Upload Excel / CSV', 
+      sublabel: 'Auto-Run Agents & Update KPIs',
+      icon: FileSpreadsheet, 
+      badge: 'Auto Swarm',
+      badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/40',
+      iconColor: 'text-cyan-400'
+    },
+    { 
       id: 'reports', 
       label: 'Verified BI Report & PDF', 
       sublabel: '98.8% Audit Score & Download',
@@ -56,20 +65,12 @@ export default function Sidebar({ activeTab, setActiveTab, pendingApprovalsCount
       iconColor: 'text-emerald-400'
     },
     { 
-      id: 'dataset', 
-      label: 'Dataset Telemetry', 
-      sublabel: '8,300 Records Ingested',
-      icon: Database, 
-      badge: '5 Sheets',
-      iconColor: 'text-blue-400'
-    },
-    { 
       id: 'profile', 
       label: 'Institute Goals & Profile', 
       sublabel: 'Capacity, Faculty & Objectives',
       icon: Settings,
       iconColor: 'text-slate-400'
-    },
+    }
   ];
 
   return (

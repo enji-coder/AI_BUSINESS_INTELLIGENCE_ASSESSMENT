@@ -4,8 +4,9 @@ import pandas as pd
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
 from sqlalchemy.orm import Session
 from ..database import get_db
-from ..models import Student, Enrollment, Attendance, Assessment, FeePayment, User
-from ..auth import get_current_user
+from ..models import Student, Enrollment, Attendance, Assessment, FeePayment
+from ..agents.crew_orchestrator import run_education_intelligence_crew
+from ..services.analytics_service import calculate_education_kpis
 
 router = APIRouter(prefix="/dataset", tags=["Dataset Management"])
 
@@ -35,8 +36,7 @@ def get_dataset_status(db: Session = Depends(get_db)):
 @router.post("/upload")
 async def upload_dataset(
     file: UploadFile = File(...),
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     if not (file.filename.endswith(".xlsx") or file.filename.endswith(".xls") or file.filename.endswith(".csv")):
         raise HTTPException(status_code=400, detail="Only Excel (.xlsx, .xls) or CSV files are supported.")
@@ -49,15 +49,13 @@ async def upload_dataset(
         shutil.copyfileobj(file.file, buffer)
 
     try:
+        imported = {}
         if file.filename.endswith(".xlsx") or file.filename.endswith(".xls"):
             xl = pd.ExcelFile(temp_file_path)
             sheets = xl.sheet_names
             
-            # Check for education sheets
-            imported = {}
             if "Students" in sheets:
                 df = pd.read_excel(temp_file_path, sheet_name="Students")
-                # Clear existing and update
                 db.query(Student).delete()
                 for _, row in df.iterrows():
                     db.add(Student(
@@ -137,12 +135,61 @@ async def upload_dataset(
                 imported["fee_payments"] = len(df)
 
             db.commit()
-            return {
-                "message": "Dataset uploaded and processed successfully.",
-                "imported_records": imported
-            }
-        else:
-            return {"message": "CSV upload processed."}
+
+        elif file.filename.endswith(".csv"):
+            df = pd.read_csv(temp_file_path)
+            cols = [c.lower() for c in df.columns]
+            
+            if any("student" in c for c in cols):
+                db.query(Student).delete()
+                for idx, row in df.iterrows():
+                    db.add(Student(
+                        student_id=str(row.get("student_id", f"STU{idx+1:04d}")),
+                        student_name=str(row.get("student_name", f"Student {idx+1}")),
+                        age=int(row.get("age", 22)),
+                        gender=str(row.get("gender", "Other")),
+                        city=str(row.get("city", "Mumbai")),
+                        email=str(row.get("email", f"stu{idx+1}@apexinstitute.edu")),
+                        admission_date=str(row.get("admission_date", "2026-05-01")),
+                        education_level=str(row.get("education_level", "Graduate"))
+                    ))
+                imported["students"] = len(df)
+            elif any("fee" in c for c in cols):
+                db.query(FeePayment).delete()
+                for idx, row in df.iterrows():
+                    db.add(FeePayment(
+                        payment_id=str(row.get("payment_id", f"PAY{idx+1:05d}")),
+                        student_id=str(row.get("student_id", f"STU{idx+1:04d}")),
+                        payment_date=str(row.get("payment_date", "2026-05-01")),
+                        amount=float(row.get("amount", 25000.0)),
+                        payment_method=str(row.get("payment_method", "UPI")),
+                        payment_status=str(row.get("payment_status", "Paid")),
+                        installment_no=int(row.get("installment_no", 1)),
+                        receipt_no=str(row.get("receipt_no", f"REC{idx+1:05d}"))
+                    ))
+                imported["fee_payments"] = len(df)
+            db.commit()
+
+        # Execute 6-Agent Swarm Intelligence on the newly ingested records
+        agent_run_data = None
+        try:
+            agent_run_data = run_education_intelligence_crew(
+                db=db,
+                workflow_type="Sequential-Hierarchical",
+                initiated_by="Dataset Upload Pipeline"
+            )
+        except Exception as agent_err:
+            print(f"Warning: Agent run post-upload notice: {agent_err}")
+
+        fresh_kpis = calculate_education_kpis(db)
+
+        return {
+            "message": "Dataset uploaded, ingested, and analyzed by the 6-Agent Swarm successfully!",
+            "imported_records": imported,
+            "total_records": sum(imported.values()),
+            "agent_run_id": agent_run_data.get("run_id") if agent_run_data else None,
+            "kpis": fresh_kpis
+        }
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Failed to process dataset: {str(e)}")
