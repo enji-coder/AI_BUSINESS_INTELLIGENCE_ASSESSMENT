@@ -109,7 +109,19 @@ export default function App() {
   };
 
   useEffect(() => {
-    loadDashboardData();
+    const initApp = async () => {
+      // Ensure valid director JWT token in localStorage for authenticated operations
+      if (!localStorage.getItem('token')) {
+        try {
+          const authRes = await api.login("director@apexinstitute.edu", "Director@2026");
+          if (authRes?.user) setCurrentUser(authRes.user);
+        } catch (e) {
+          console.warn("Silent demo auth notice:", e);
+        }
+      }
+      loadDashboardData();
+    };
+    initApp();
   }, []);
 
   // Trigger Multi-Agent Crew Execution

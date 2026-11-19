@@ -4,7 +4,8 @@ import pandas as pd
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
 from sqlalchemy.orm import Session
 from ..database import get_db
-from ..models import Student, Enrollment, Attendance, Assessment, FeePayment
+from ..models import Student, Enrollment, Attendance, Assessment, FeePayment, User
+from ..auth import get_current_user
 from ..agents.crew_orchestrator import run_education_intelligence_crew
 from ..services.analytics_service import calculate_education_kpis
 
@@ -36,7 +37,8 @@ def get_dataset_status(db: Session = Depends(get_db)):
 @router.post("/upload")
 async def upload_dataset(
     file: UploadFile = File(...),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
 ):
     if not (file.filename.endswith(".xlsx") or file.filename.endswith(".xls") or file.filename.endswith(".csv")):
         raise HTTPException(status_code=400, detail="Only Excel (.xlsx, .xls) or CSV files are supported.")
@@ -176,7 +178,7 @@ async def upload_dataset(
             agent_run_data = run_education_intelligence_crew(
                 db=db,
                 workflow_type="Sequential-Hierarchical",
-                initiated_by="Dataset Upload Pipeline"
+                initiated_by=f"Dataset Ingestion by {current_user.full_name} ({current_user.role})"
             )
         except Exception as agent_err:
             print(f"Warning: Agent run post-upload notice: {agent_err}")
